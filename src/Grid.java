@@ -1,12 +1,7 @@
 import java.lang.Math;
 
 public class Grid {
-    boolean [][] visited = new boolean[101][101];
-    boolean [][] blocked = new boolean[101][101];
-    char [][] maze = new char[101][101];
-    int [][] h = new int[101][101];
-    int [][] g = new int[101][101];
-    int [][] f = new int[101][101];
+    Cell [][] cells = new Cell[101][101];
 
     int startx = 0;
     int starty = 0;
@@ -16,35 +11,33 @@ public class Grid {
 
 
     public Grid() {
-        visited[startx][starty] = true;
 
-        int blockProb = 0;
-        int heuristic = 0;
-        int g_val = 0;
+        boolean blocked = false;
+        boolean visited = false;
+        int blockedProb = 0;
 
-        for(int i = 0; i < maze.length; i++) {
-            for(int j = 0; j < maze[0].length; j++) {
+        for(int i = 0; i < cells.length; i++){
+            for(int j = 0; j < cells[0].length; j++){
 
-                blockProb = (int) (Math.random() * 10);
-                heuristic = Math.abs(i - targetx) + Math.abs(j - targety);
-                h[i][j] = heuristic;
-                g_val = Math.abs(startx - i) + Math.abs(starty - j);
-                g[i][j] = g_val;
-                f[i][j] = g[i][j] + h[i][j];
-
-
-                if(i == 0 && j == 0)
+                if((i == 0 && j == 0)) {
+                    visited = true;
+                    cells[i][j] = new Cell(i, j, visited, blocked);
+                    visited = false;
                     continue;
-                if(i == 100 && j == 100)
-                    continue;
+                }
+                else {
+                    if(i == 100 && j == 100){
+                        cells[i][j] = new Cell(i, j, visited, blocked);
+                        continue;
+                    }
 
-                if(blockProb < 3) {
-                    blocked[i][j] = true;
-                    maze[i][j] = 'x';
-                }else {
-                    maze[i][j] = ' ';
+                    blockedProb = (int) (Math.random() * 10);
+                    if(blockedProb < 3)
+                        blocked = true;
                 }
 
+                cells[i][j] = new Cell(i,j, visited, blocked);
+                blocked = false;
             }
         }
 
@@ -53,10 +46,9 @@ public class Grid {
 
 
     public void display() {
-
-        for(int i = 0; i < maze.length; i++) {
-            for(int j = 0; j < maze[0].length; j++) {
-                System.out.print(maze[i][j]);
+        for(int i = 0; i < cells.length; i++){
+            for(int j = 0; j < cells[0].length; j++){
+                cells[i][j].display();
             }
             System.out.println();
         }
