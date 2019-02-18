@@ -7,5 +7,6 @@ public class Runner {
         for(int i = 0; i < grids.length; i++) {
             grids[i] = new Grid();
         }
+
     }
 }

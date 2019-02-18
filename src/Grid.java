@@ -5,6 +5,7 @@ public class Grid {
     boolean [][] blocked = new boolean[101][101];
     char [][] maze = new char[101][101];
     int [][] h = new int[101][101];
+    int [][] g = new int[101][101];
 
     int startx = 0;
     int starty = 0;
@@ -18,6 +19,7 @@ public class Grid {
 
         int blockProb = 0;
         int heuristic = 0;
+        int g_val = 0;
 
         for(int i = 0; i < maze.length; i++) {
             for(int j = 0; j < maze[0].length; j++) {
@@ -25,6 +27,8 @@ public class Grid {
                 blockProb = (int) (Math.random() * 10);
                 heuristic = Math.abs(i - targetx) + Math.abs(j - targety);
                 h[i][j] = heuristic;
+                g_val = Math.abs(startx - i) + Math.abs(starty - j);
+                g[i][j] = g_val;
 
 
                 if(i == 0 && j == 0)
