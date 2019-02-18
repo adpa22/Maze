@@ -6,6 +6,7 @@ public class Grid {
     char [][] maze = new char[101][101];
     int [][] h = new int[101][101];
     int [][] g = new int[101][101];
+    int [][] f = new int[101][101];
 
     int startx = 0;
     int starty = 0;
@@ -29,6 +30,7 @@ public class Grid {
                 h[i][j] = heuristic;
                 g_val = Math.abs(startx - i) + Math.abs(starty - j);
                 g[i][j] = g_val;
+                f[i][j] = g[i][j] + h[i][j];
 
 
                 if(i == 0 && j == 0)
