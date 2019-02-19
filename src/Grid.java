@@ -43,6 +43,10 @@ public class Grid {
 
     }
 
+    public Cell getCell(int x, int y){
+        return cells[x][y];
+    }
+
 
 
     public void display() {
